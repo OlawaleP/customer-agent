@@ -1,0 +1,9 @@
+ticket_id,customer_id,customer_message,expected_category,expected_outcome
+T-001,cust_001,What is the balance on my gift card GC-1001?,balance_inquiry,auto_reply
+T-002,cust_002,I tried to redeem my code but it keeps failing,redemption_failed,auto_reply
+T-003,cust_003,My card GC-1003 never arrived and it's been two weeks,card_not_delivered,auto_reply
+T-004,cust_004,I was charged twice for the same $80 gift card,refund_request,escalate
+T-005,cust_005,Someone hacked my account and used my gift card without permission,fraud_or_stolen,escalate
+T-006,cust_006,This is unacceptable I want a refund now or I'm getting my lawyer involved,refund_request,escalate
+T-007,cust_007,I'm locked out of my account and can't reset my password,account_access,escalate
+T-008,cust_008,How long is a gift card valid for after purchase?,general_faq,auto_reply

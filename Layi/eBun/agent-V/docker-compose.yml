@@ -1,0 +1,44 @@
+# Infrastructure only. The FastAPI app and MCP servers run as regular
+# Python processes (see README) so you can iterate on them without
+# rebuilding a container every change -- containerize app/ once it's stable.
+
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: agent
+      POSTGRES_PASSWORD: agent_dev_password
+      POSTGRES_DB: giftcard_agent
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  # Uncomment once you're ready to self-host the model instead of using
+  # a hosted open-weights API. Requires a GPU host; see README.
+  # vllm:
+  #   image: vllm/vllm-openai:latest
+  #   restart: unless-stopped
+  #   command: --model Qwen/Qwen2.5-72B-Instruct
+  #   ports:
+  #     - "8000:8000"
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: 1
+  #             capabilities: [gpu]
+
+volumes:
+  pg_data:
+  qdrant_data:
